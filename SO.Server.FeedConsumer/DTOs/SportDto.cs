@@ -1,8 +1,11 @@
-﻿using System.Xml.Serialization;
+﻿using SO.Server.FeedConsumer.Compares;
+using System;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace SO.Server.FeedConsumer.DTOs
 {
-    public class SportDto
+    public class SportDto : IEquatable<SportDto>
     {
         [XmlAttribute(AttributeName = "ID")]
         public int Id { get; set; }
@@ -12,6 +15,21 @@ namespace SO.Server.FeedConsumer.DTOs
 
         [XmlElement(ElementName = "Event")]
         public EventDto[] Events { get; set; }
+
+        public bool Equals(SportDto other)
+        {
+            return Id.Equals(other.Id)
+                 && Name.Equals(other.Name)
+                 && (Events.Except(other.Events, new GenericComparer<EventDto>()).Count() == 0);
+        }
+
+        public override int GetHashCode()
+        {
+
+            return Id.GetHashCode()
+                ^ Name.GetHashCode()
+                ^ Events.Aggregate(0, (acc, x) => acc ^ x.GetHashCode());
+        }
 
     }
 }

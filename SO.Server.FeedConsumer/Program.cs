@@ -1,8 +1,9 @@
 ﻿using SO.Server.FeedConsumer.DTOs;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Linq;
 
 namespace SO.Server.FeedConsumer
 {
@@ -33,9 +34,12 @@ namespace SO.Server.FeedConsumer
                 b = (XmlSports)serializer2.Deserialize(reader);
             }
 
-            var diff = b.Sport.Events.SequenceEqual(a.Sport.Events);
+            for (int i = 0; i < 1000; i++)
+            {
 
-            //UnitOfWork uow = new UnitOfWork<>
+            var result = a.Sport.Events.Except(b.Sport.Events);
+            }
+            var bxcv = 1;
         }
     }
 }

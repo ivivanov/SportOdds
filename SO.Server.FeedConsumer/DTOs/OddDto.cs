@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace SO.Server.FeedConsumer.DTOs
 {
-    public class OddDto//: IComparable<double>
+    public class OddDto : IEquatable<OddDto>
     {
         [XmlAttribute(AttributeName = "ID")]
         public int Id { get; set; }
@@ -14,9 +14,18 @@ namespace SO.Server.FeedConsumer.DTOs
         [XmlAttribute]
         public double Value { get; set; }
 
-        //public int CompareTo(double other)
-        //{
-        //    return other.CompareTo(Value);  
-        //}
+        public bool Equals(OddDto other)
+        {
+            return Id.Equals(other.Id)
+                 && Name.Equals(other.Name)
+                 && Value.Equals(other.Value);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode()
+             ^ Name.GetHashCode()
+             ^ Value.GetHashCode();
+        }
     }
 }
