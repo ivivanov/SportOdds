@@ -1,4 +1,4 @@
-﻿using SO.Server.FeedConsumer.Compares;
+﻿using SO.Server.FeedConsumer.Comparers;
 using System;
 using System.Linq;
 using System.Xml.Serialization;

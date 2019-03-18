@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SO.Server.FeedConsumer.Compares
+namespace SO.Server.FeedConsumer.Comparers
 {
     public class GenericComparer<T> : IEqualityComparer<T> where T : class, IEquatable<T>
     {
