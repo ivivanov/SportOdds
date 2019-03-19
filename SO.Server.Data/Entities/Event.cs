@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SO.Server.Data.Entities
 {
@@ -11,6 +12,7 @@ namespace SO.Server.Data.Entities
         }
 
         [Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public string Name { get; set; }

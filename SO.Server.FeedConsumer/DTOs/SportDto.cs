@@ -25,11 +25,9 @@ namespace SO.Server.FeedConsumer.DTOs
 
         public override int GetHashCode()
         {
-
             return Id.GetHashCode()
                 ^ Name.GetHashCode()
                 ^ Events.Aggregate(0, (acc, x) => acc ^ x.GetHashCode());
         }
-
     }
 }

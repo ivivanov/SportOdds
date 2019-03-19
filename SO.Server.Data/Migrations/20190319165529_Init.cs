@@ -8,23 +8,10 @@ namespace SO.Server.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "MatchType",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MatchType", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Sports",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -36,8 +23,7 @@ namespace SO.Server.Data.Migrations
                 name: "Event",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     IsLive = table.Column<bool>(nullable: false),
                     SportId = table.Column<int>(nullable: true)
@@ -57,11 +43,10 @@ namespace SO.Server.Data.Migrations
                 name: "Match",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
-                    MatchTypeId = table.Column<int>(nullable: false),
+                    MatchType = table.Column<string>(nullable: true),
                     EventId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -73,23 +58,52 @@ namespace SO.Server.Data.Migrations
                         principalTable: "Event",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Match_MatchType_MatchTypeId",
-                        column: x => x.MatchTypeId,
-                        principalTable: "MatchType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "MatchType",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "PreMatch" });
+            migrationBuilder.CreateTable(
+                name: "Bet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    IsLive = table.Column<bool>(nullable: false),
+                    MatchId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bet_Match_MatchId",
+                        column: x => x.MatchId,
+                        principalTable: "Match",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
-            migrationBuilder.InsertData(
-                table: "MatchType",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 2, "Live" });
+            migrationBuilder.CreateTable(
+                name: "Odd",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Value = table.Column<double>(nullable: false),
+                    BetId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Odd", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Odd_Bet_BetId",
+                        column: x => x.BetId,
+                        principalTable: "Bet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bet_MatchId",
+                table: "Bet",
+                column: "MatchId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Event_SportId",
@@ -102,21 +116,24 @@ namespace SO.Server.Data.Migrations
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Match_MatchTypeId",
-                table: "Match",
-                column: "MatchTypeId");
+                name: "IX_Odd_BetId",
+                table: "Odd",
+                column: "BetId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Odd");
+
+            migrationBuilder.DropTable(
+                name: "Bet");
+
+            migrationBuilder.DropTable(
                 name: "Match");
 
             migrationBuilder.DropTable(
                 name: "Event");
-
-            migrationBuilder.DropTable(
-                name: "MatchType");
 
             migrationBuilder.DropTable(
                 name: "Sports");
