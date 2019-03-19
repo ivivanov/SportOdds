@@ -8,7 +8,7 @@ namespace SO.Server.Data
         public static IServiceCollection AddDataLayerDependencies(this IServiceCollection services)
         {
             services.AddDbContext<SODbContext>(options => options.UseSqlite(SODbContext.ConnectionString));
-			services.AddTransient<IUnitOfWork, UnitOfWork<SODbContext>>();
+            services.AddTransient<IUnitOfWork, UnitOfWork<SODbContext>>();
             return services;
         }
 

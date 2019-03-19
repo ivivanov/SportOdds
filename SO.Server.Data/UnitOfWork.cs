@@ -1,41 +1,40 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SO.Server.Data
 {
     public class UnitOfWork<TContext> : IUnitOfWork<TContext> where TContext : DbContext, IDisposable
-	{
+    {
         private readonly TContext _context;
-		private Dictionary<Type, object> _repositories;
+        private Dictionary<Type, object> _repositories;
 
-		public UnitOfWork(TContext context)
+        public UnitOfWork(TContext context)
         {
             _context = context;
         }
 
-		public int SaveChanges() {
-			return _context.SaveChanges();
-		}
-
+        public int SaveChanges()
+        {
+            return _context.SaveChanges();
+        }
 
         public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
         {
-			if(_repositories == null)
-				_repositories = new Dictionary<Type, object>();
+            if (_repositories == null)
+                _repositories = new Dictionary<Type, object>();
 
-			var type = typeof(TEntity);
+            var type = typeof(TEntity);
 
-			if(!_repositories.ContainsKey(type))
-				_repositories[type] = new Repository<TEntity>(_context);
+            if (!_repositories.ContainsKey(type))
+                _repositories[type] = new Repository<TEntity>(_context);
 
-			return (IRepository<TEntity>)_repositories[type];
-		}
+            return (IRepository<TEntity>)_repositories[type];
+        }
 
-		public void Dispose()
+        public void Dispose()
         {
             _context.Dispose();
         }
-	}
+    }
 }

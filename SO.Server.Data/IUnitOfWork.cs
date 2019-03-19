@@ -7,8 +7,8 @@ namespace SO.Server.Data
     {
         IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
 
-		int SaveChanges();
-	}
+        int SaveChanges();
+    }
 
     public interface IUnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
     {

@@ -12,8 +12,8 @@ namespace SO.Server.Data.Entities
         }
 
         [Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

@@ -7,12 +7,13 @@ namespace SO.Server.Data.Entities
 {
     public class Match
     {
-		public Match() {
-			Bets = new HashSet<Bet>();
-		}
+        public Match()
+        {
+            Bets = new HashSet<Bet>();
+        }
 
         [Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -21,6 +22,6 @@ namespace SO.Server.Data.Entities
 
         public string MatchType { get; set; }
 
-		public ICollection<Bet> Bets { get; set; }
-	}
+        public ICollection<Bet> Bets { get; set; }
+    }
 }
