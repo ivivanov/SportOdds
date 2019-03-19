@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SO.Server.Core", "SO.Server
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SO.Server.Data", "SO.Server.Data\SO.Server.Data.csproj", "{3C7FF709-C05F-4E46-A9FD-E63771032093}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SO.Server.FeedConsumer", "SO.Server.FeedConsumer\SO.Server.FeedConsumer.csproj", "{52AAD448-4764-43F6-9AC7-62BCCBB603A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SO.Server.FeedConsumer", "SO.Server.FeedConsumer\SO.Server.FeedConsumer.csproj", "{52AAD448-4764-43F6-9AC7-62BCCBB603A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

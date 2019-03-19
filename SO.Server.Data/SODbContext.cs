@@ -5,7 +5,7 @@ namespace SO.Server.Data
 {
     public class SODbContext : DbContext
     {
-        public const string ConnectionString = "Data Source=SportOddsDb.db";
+        public const string ConnectionString = @"Data Source=..\..\..\..\SQLiteDatabase\SportOddsDb.db";
 
         public SODbContext(DbContextOptions<SODbContext> options) : base(options)
         {
