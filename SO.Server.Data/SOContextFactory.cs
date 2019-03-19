@@ -8,7 +8,7 @@ namespace SO.Server.Data
         public SODbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<SODbContext>();
-            optionsBuilder.UseSqlite($"Data Source=Databases/{SODbContext.DbName}");
+            optionsBuilder.UseSqlite(SODbContext.ConnectionString);
 
             return new SODbContext(optionsBuilder.Options);
         }
