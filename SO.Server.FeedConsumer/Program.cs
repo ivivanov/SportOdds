@@ -19,17 +19,31 @@ namespace SO.Server.FeedConsumer
 
             var serviceProvider = RegisterDependencies(new ServiceCollection());
 
-            var a = Get("soccer.xml");
-            var b = Get("soccer2.xml");
+            var currentXml = Get("soccer.xml");
+            var newXml = Get("soccer2.xml");
 
             var mapper = serviceProvider.GetService<IMapper>();
             var uow = serviceProvider.GetService<IUnitOfWork>();
-            var sport = mapper.Map<Sport>(a.Sport);
             var sportsRepo = uow.GetRepository<Sport>();
-            sportsRepo.Add(sport);
+            var eventsRepo = uow.GetRepository<Event>();
+            //var sport = mapper.Map<Sport>(currentXml.Sport);
+
+            //delete
+            var delete = currentXml.Sport.Events.Except(newXml.Sport.Events);
+            var deleteEvents = mapper.Map<IEnumerable<Event>>(delete);
+            eventsRepo.Delete(deleteEvents);
             uow.SaveChanges();
-            //var result = a.Sport.Events.Except(b.Sport.Events);
-            //var bxcv = 1;
+            //update
+            //var update = currentXml.Sport.Events.Intersect(newXml.Sport.Events);
+            //add
+            var add = newXml.Sport.Events.Except(currentXml.Sport.Events);
+            var addEvents = mapper.Map<IEnumerable<Event>>(add);
+            eventsRepo.Add(addEvents);
+
+
+            //example with odds
+            var oddsA = newXml.Sport.Events.Select(x => x.Matches.Select(y => y.Bets.Select(z => z.Odds.Select(m => m.Id))));
+            //Think of generic service to return sets for delete,update, add
         }
 
         private static XmlSports GetXmlSportObj(string fileName)
