@@ -1,43 +1,34 @@
-# Cookie Factory
+# SportOdds
 
-Cookie Factory is a job interview task. It consists of multithreaded server side solution - self hosted console app powered by Kestrel. Also a client HTML GUI is added for better experience. 
+This is a proof of concept for consuming a feed, persisting the data in a db and broadcast the differences to a web client
+
+### Prerequisites
+.NET Core 2.2 - https://dotnet.microsoft.com/download/dotnet-core/2.2
+node.js - Self host our web client
 
 ### Tech
-* Server: .NET Core, Kestrel, Custom Websockets middleware, Multithreading 
-* GUI: ReactJS, Native js websockets, Bootstrap, Webpack, Babel
+* Server: .NET Core, SignalR, Hangfire, Automapper, Entity Framework Core SQLite
+* Database: SQLite
+* GUI: ReactJS, signalr, Bootstrap, Webpack, Babel
 
-### GUI Features
-* Switch
-    * Start the machine
-    * Pause (not implemeted)
-    * Stop the machine
-* Oven - on/off indicator
-    * Heating - on/off indicator
-    * Temperature - current temperature
-* Motor - on/off indicator
-    *  "Pulse..." - one full rotation indicates a pulse
-* Biscuit Maker - produces one cookie for total of 2 motor rotations
-    * Extruder "Pulse..."
-    * Stamper "Pulse..."
-* Biscuit Counter - on/off indicator
-    * Bakeing - number of cookies on the production line
-    * Baked - number of total baked cookies
-* Diagnostics
-    * Websocket connection health
-    * Push notifications log
-
-# Start the Cookie Factory
-### Prerequisites
-.NET Core 2.0, Node.js, Chrome browser 
-### Installation
-Starting ther server:
+# Start the server
+### Setup
+Open package manager console in Visual Studio
+Create the db by runnig EF code first migrations:
 ```sh
-$ cd BM.Websockets.Server
+Add-Migration -Project SO.Server.Data -StartupProject SO.Server.Data -Name CreateDb 
+Update-Database -Project SO.Server.Data -StartupProject SO.Server.Data
+```
+
+Starting the server:
+You can do that either by starting it from Visual Studio or from cmd:
+```sh
+$ cd SO.Server.FeedConsumer
 $ dotnet build
 $ dotnet run
 ```
 
-After you see the "Ready" message dont close the terminal.
+At this point we started getting data from the feed and boradcast it to any websockets subscriber
 
 Opening the client GUI
 
@@ -47,16 +38,5 @@ $ npm install
 $ npm start
 ```
 Open link: http://localhost:3000/
-
-# TODOs and Known Issues
-Server:
-* Pause is not implemented
-* Machnie does not support restart - once started and than stopped can not be started again
-* Synchronization problems when stopping the production line. Should be introduced CookieState mechanism for tracking the cookie position on the production line before marking it as baked
-
-GUI:
-* Improve Switch disable button states
-* Handle browser refresh
-* Auto re-connect to the server
 
 

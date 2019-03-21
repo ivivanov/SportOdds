@@ -5,8 +5,8 @@ using System.Xml.Serialization;
 
 namespace SO.Server.FeedConsumer.DTOs
 {
-    public class BetDto : IEquatable<BetDto>
-    {
+    public class BetDto : IEquatable<BetDto>, IHaveUniqueId
+	{
         [XmlAttribute(AttributeName = "ID")]
         public int Id { get; set; }
 

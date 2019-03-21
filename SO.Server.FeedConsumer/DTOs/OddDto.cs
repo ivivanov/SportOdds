@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace SO.Server.FeedConsumer.DTOs
 {
-    public class OddDto : IEquatable<OddDto>
+    public class OddDto : IEquatable<OddDto>, IHaveUniqueId
     {
         [XmlAttribute(AttributeName = "ID")]
         public int Id { get; set; }

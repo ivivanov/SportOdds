@@ -5,8 +5,8 @@ using System.Xml.Serialization;
 
 namespace SO.Server.FeedConsumer.DTOs
 {
-    public class MatchDto : IEquatable<MatchDto>
-    {
+    public class MatchDto : IEquatable<MatchDto>, IHaveUniqueId
+	{
         [XmlAttribute(AttributeName = "ID")]
         public int Id { get; set; }
 
