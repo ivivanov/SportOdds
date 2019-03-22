@@ -40,7 +40,10 @@ namespace SO.Server.FeedConsumer
 		}
 
 		public static IEnumerable<int> ToUpdateIDs<T>(IEnumerable<T> current, IEnumerable<T> updated) where T : class, IEquatable<T>, IHaveUniqueId {
-			return current.Except(updated).Select(x => x.Id);
+			var compareResult = updated.Except(current).Select(x => x.Id);
+			var toAdd = ToAddIDs(current, updated);
+			
+			return compareResult.Except(toAdd);
 		}
 	}
 
