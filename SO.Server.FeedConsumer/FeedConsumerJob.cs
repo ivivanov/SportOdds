@@ -63,7 +63,9 @@ namespace SO.Server.FeedConsumer
                 var toUpdate = _mapper.Map<IEnumerable<Event>>(currentSport.Events.Where(x => syncResult.Update.Contains(x.Id)));
                 genericRepository.Add(toAdd);
                 genericRepository.Delete(toDelete);
-                genericRepository.Update(toUpdate);
+                //genericRepository.Update(toUpdate);
+
+            //var sync2 = Sync<>
                 //Sync Events
                 //var currentMatches = _mapper.Map<IEnumerable<MatchModel>>(_currentSport.Events.SelectMany(x => x.Matches));
                 //var updatedMatches = updated.Sport.Events.SelectMany(x => x.Matches);
