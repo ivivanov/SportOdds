@@ -3,29 +3,22 @@ using System;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace SO.Server.FeedConsumer.DTOs
+namespace SO.Server.FeedConsumer.Models
 {
-    public class BetDto : IEquatable<BetDto>, IHaveUniqueId
-	{
-        [XmlAttribute(AttributeName = "ID")]
-        public int Id { get; set; }
-
-        [XmlAttribute]
-        public string Name { get; set; }
-
+    public class BetModel : BaseModel, IEquatable<BetModel>
+    {
         [XmlAttribute]
         public bool IsLive { get; set; }
 
         [XmlElement(ElementName = "Odd")]
-        public OddDto[] Odds { get; set; }
+        public OddModel[] Odds { get; set; }
 
-        public bool Equals(BetDto other)
+        public bool Equals(BetModel other)
         {
             return Id.Equals(other.Id)
                  && Name.Equals(other.Name)
                  && IsLive.Equals(other.IsLive)
-                 && (Odds.Except(other.Odds, new GenericComparer<OddDto>()).Count() == 0);
-
+                 && (Odds.Except(other.Odds, new GenericComparer<OddModel>()).Count() == 0);
         }
 
         public override int GetHashCode()

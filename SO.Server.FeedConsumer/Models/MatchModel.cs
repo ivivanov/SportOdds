@@ -3,16 +3,10 @@ using System;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace SO.Server.FeedConsumer.DTOs
+namespace SO.Server.FeedConsumer.Models
 {
-    public class MatchDto : IEquatable<MatchDto>, IHaveUniqueId
-	{
-        [XmlAttribute(AttributeName = "ID")]
-        public int Id { get; set; }
-
-        [XmlAttribute]
-        public string Name { get; set; }
-
+    public class MatchModel : BaseModel, IEquatable<MatchModel>
+    {
         [XmlAttribute]
         public DateTime StartDate { get; set; }
 
@@ -20,9 +14,9 @@ namespace SO.Server.FeedConsumer.DTOs
         public string MatchType { get; set; }
 
         [XmlElement(ElementName = "Bet")]
-        public BetDto[] Bets { get; set; }
+        public BetModel[] Bets { get; set; }
 
-        public bool Equals(MatchDto other)
+        public bool Equals(MatchModel other)
         {
             bool areEqual = Id.Equals(other.Id)
                  && Name.Equals(other.Name)
@@ -30,7 +24,7 @@ namespace SO.Server.FeedConsumer.DTOs
                  && MatchType.Equals(other.MatchType);
 
             if (HasBets)
-                return areEqual && (Bets.Except(other.Bets, new GenericComparer<BetDto>()).Count() == 0);
+                return areEqual && (Bets.Except(other.Bets, new GenericComparer<BetModel>()).Count() == 0);
 
             return areEqual;
         }

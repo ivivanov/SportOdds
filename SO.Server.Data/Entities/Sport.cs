@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SO.Server.Data.Entities
 {
-    public class Sport
+    [Table("Sports")]
+    public class Sport : IEntity
     {
         public Sport()
         {
@@ -17,6 +18,6 @@ namespace SO.Server.Data.Entities
 
         public string Name { get; set; }
 
-        public ICollection<Event> Events { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

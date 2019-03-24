@@ -3,24 +3,18 @@ using System;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace SO.Server.FeedConsumer.DTOs
+namespace SO.Server.FeedConsumer.Models
 {
-    public class SportDto : IEquatable<SportDto>, IHaveUniqueId
-	{
-        [XmlAttribute(AttributeName = "ID")]
-        public int Id { get; set; }
-
-        [XmlAttribute]
-        public string Name { get; set; }
-
+    public class SportModel : BaseModel, IEquatable<SportModel>
+    {
         [XmlElement(ElementName = "Event")]
-        public EventDto[] Events { get; set; }
+        public EventModel[] Events { get; set; }
 
-        public bool Equals(SportDto other)
+        public bool Equals(SportModel other)
         {
             return Id.Equals(other.Id)
                  && Name.Equals(other.Name)
-                 && (Events.Except(other.Events, new GenericComparer<EventDto>()).Count() == 0);
+                 && (Events.Except(other.Events, new GenericComparer<EventModel>()).Count() == 0);
         }
 
         public override int GetHashCode()

@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SO.Server.Data.Entities
 {
-    public class Event
+    [Table("Events")]
+    public class Event : IEntity
     {
         public Event()
         {
@@ -15,10 +16,15 @@ namespace SO.Server.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
+        [ForeignKey("Sport")]
+        public int SportId { get; set; }
+
+        public Sport Sport { get; set; }
+
         public string Name { get; set; }
 
         public bool IsLive { get; set; }
 
-        public ICollection<Match> Matches { get; set; }
+        public virtual ICollection<Match> Matches { get; set; }
     }
 }

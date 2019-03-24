@@ -19,7 +19,7 @@ namespace SO.Server.Data
             return _context.SaveChanges();
         }
 
-        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
         {
             if (_repositories == null)
                 _repositories = new Dictionary<Type, object>();

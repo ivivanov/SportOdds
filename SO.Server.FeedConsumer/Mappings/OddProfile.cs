@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
 using SO.Server.Data.Entities;
-using SO.Server.FeedConsumer.DTOs;
+using SO.Server.FeedConsumer.Models;
 
-namespace SO.Server.FeedConsumer.Mappings {
-	public class OddProfile : Profile {
-		public OddProfile() {
-			CreateMap<OddDto, Odd>();
-		}
-	}
+namespace SO.Server.FeedConsumer.Mappings
+{
+    public class OddProfile : Profile
+    {
+        public OddProfile()
+        {
+            CreateMap<OddModel, Odd>();
+            CreateMap<Odd, OddModel>();
+        }
+    }
 }

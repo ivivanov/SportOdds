@@ -3,28 +3,21 @@ using System;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace SO.Server.FeedConsumer.DTOs
+namespace SO.Server.FeedConsumer.Models
 {
-    public class EventDto : IEquatable<EventDto>, IHaveUniqueId
-	{
-        [XmlAttribute(AttributeName = "ID")]
-        public int Id { get; set; }
-
-        [XmlAttribute]
-        public string Name { get; set; }
-
+    public class EventModel : BaseModel, IEquatable<EventModel>
+    {
         [XmlAttribute]
         public bool IsLive { get; set; }
 
         [XmlElement(ElementName = "Match")]
-        public MatchDto[] Matches { get; set; }
+        public MatchModel[] Matches { get; set; }
 
-        public bool Equals(EventDto other)
+        public bool Equals(EventModel other)
         {
             return Id.Equals(other.Id)
                  && Name.Equals(other.Name)
-                 && (Matches.Except(other.Matches, new GenericComparer<MatchDto>()).Count() == 0);
-
+                 && (Matches.Except(other.Matches, new GenericComparer<MatchModel>()).Count() == 0);
         }
 
         public override int GetHashCode()

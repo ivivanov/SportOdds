@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SO.Server.Data.Migrations
 {
-    public partial class Init : Migration
+    public partial class CreateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,120 +20,120 @@ namespace SO.Server.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Event",
+                name: "Events",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
+                    SportId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    IsLive = table.Column<bool>(nullable: false),
-                    SportId = table.Column<int>(nullable: true)
+                    IsLive = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Event", x => x.Id);
+                    table.PrimaryKey("PK_Events", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Event_Sports_SportId",
+                        name: "FK_Events_Sports_SportId",
                         column: x => x.SportId,
                         principalTable: "Sports",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Match",
+                name: "Matches",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
+                    EventId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
-                    MatchType = table.Column<string>(nullable: true),
-                    EventId = table.Column<int>(nullable: true)
+                    MatchType = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Match", x => x.Id);
+                    table.PrimaryKey("PK_Matches", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Match_Event_EventId",
+                        name: "FK_Matches_Events_EventId",
                         column: x => x.EventId,
-                        principalTable: "Event",
+                        principalTable: "Events",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Bet",
+                name: "Bets",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
+                    MatchId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    IsLive = table.Column<bool>(nullable: false),
-                    MatchId = table.Column<int>(nullable: true)
+                    IsLive = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Bet", x => x.Id);
+                    table.PrimaryKey("PK_Bets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bet_Match_MatchId",
+                        name: "FK_Bets_Matches_MatchId",
                         column: x => x.MatchId,
-                        principalTable: "Match",
+                        principalTable: "Matches",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Odd",
+                name: "Odds",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
+                    BetId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Value = table.Column<double>(nullable: false),
-                    BetId = table.Column<int>(nullable: true)
+                    Value = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Odd", x => x.Id);
+                    table.PrimaryKey("PK_Odds", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Odd_Bet_BetId",
+                        name: "FK_Odds_Bets_BetId",
                         column: x => x.BetId,
-                        principalTable: "Bet",
+                        principalTable: "Bets",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bet_MatchId",
-                table: "Bet",
+                name: "IX_Bets_MatchId",
+                table: "Bets",
                 column: "MatchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_SportId",
-                table: "Event",
+                name: "IX_Events_SportId",
+                table: "Events",
                 column: "SportId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Match_EventId",
-                table: "Match",
+                name: "IX_Matches_EventId",
+                table: "Matches",
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Odd_BetId",
-                table: "Odd",
+                name: "IX_Odds_BetId",
+                table: "Odds",
                 column: "BetId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Odd");
+                name: "Odds");
 
             migrationBuilder.DropTable(
-                name: "Bet");
+                name: "Bets");
 
             migrationBuilder.DropTable(
-                name: "Match");
+                name: "Matches");
 
             migrationBuilder.DropTable(
-                name: "Event");
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Sports");

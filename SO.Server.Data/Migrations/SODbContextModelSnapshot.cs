@@ -22,7 +22,7 @@ namespace SO.Server.Data.Migrations
 
                     b.Property<bool>("IsLive");
 
-                    b.Property<int?>("MatchId");
+                    b.Property<int>("MatchId");
 
                     b.Property<string>("Name");
 
@@ -30,7 +30,7 @@ namespace SO.Server.Data.Migrations
 
                     b.HasIndex("MatchId");
 
-                    b.ToTable("Bet");
+                    b.ToTable("Bets");
                 });
 
             modelBuilder.Entity("SO.Server.Data.Entities.Event", b =>
@@ -41,20 +41,20 @@ namespace SO.Server.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("SportId");
+                    b.Property<int>("SportId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SportId");
 
-                    b.ToTable("Event");
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("SO.Server.Data.Entities.Match", b =>
                 {
                     b.Property<int>("Id");
 
-                    b.Property<int?>("EventId");
+                    b.Property<int>("EventId");
 
                     b.Property<string>("MatchType");
 
@@ -66,14 +66,14 @@ namespace SO.Server.Data.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("Match");
+                    b.ToTable("Matches");
                 });
 
             modelBuilder.Entity("SO.Server.Data.Entities.Odd", b =>
                 {
                     b.Property<int>("Id");
 
-                    b.Property<int?>("BetId");
+                    b.Property<int>("BetId");
 
                     b.Property<string>("Name");
 
@@ -83,7 +83,7 @@ namespace SO.Server.Data.Migrations
 
                     b.HasIndex("BetId");
 
-                    b.ToTable("Odd");
+                    b.ToTable("Odds");
                 });
 
             modelBuilder.Entity("SO.Server.Data.Entities.Sport", b =>
@@ -99,30 +99,34 @@ namespace SO.Server.Data.Migrations
 
             modelBuilder.Entity("SO.Server.Data.Entities.Bet", b =>
                 {
-                    b.HasOne("SO.Server.Data.Entities.Match")
+                    b.HasOne("SO.Server.Data.Entities.Match", "Match")
                         .WithMany("Bets")
-                        .HasForeignKey("MatchId");
+                        .HasForeignKey("MatchId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SO.Server.Data.Entities.Event", b =>
                 {
-                    b.HasOne("SO.Server.Data.Entities.Sport")
+                    b.HasOne("SO.Server.Data.Entities.Sport", "Sport")
                         .WithMany("Events")
-                        .HasForeignKey("SportId");
+                        .HasForeignKey("SportId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SO.Server.Data.Entities.Match", b =>
                 {
-                    b.HasOne("SO.Server.Data.Entities.Event")
+                    b.HasOne("SO.Server.Data.Entities.Event", "Event")
                         .WithMany("Matches")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SO.Server.Data.Entities.Odd", b =>
                 {
-                    b.HasOne("SO.Server.Data.Entities.Bet")
+                    b.HasOne("SO.Server.Data.Entities.Bet", "Bet")
                         .WithMany("Odds")
-                        .HasForeignKey("BetId");
+                        .HasForeignKey("BetId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

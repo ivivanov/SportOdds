@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SO.Server.Data.Entities
 {
-    public class Bet
+    [Table("Bets")]
+    public class Bet : IEntity
     {
         public Bet()
         {
@@ -15,10 +16,15 @@ namespace SO.Server.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
+        [ForeignKey("Match")]
+        public int MatchId { get; set; }
+
+        public Match Match { get; set; }
+
         public string Name { get; set; }
 
         public bool IsLive { get; set; }
 
-        public ICollection<Odd> Odds { get; set; }
+        public virtual ICollection<Odd> Odds { get; set; }
     }
 }

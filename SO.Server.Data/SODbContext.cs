@@ -12,10 +12,14 @@ namespace SO.Server.Data
         }
 
         public DbSet<Sport> Sports { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Match> Matches { get; set; }
+        public DbSet<Bet> Bets { get; set; }
+        public DbSet<Odd> Odds { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Seed data
+            //modelBuilder.Entity<Event>().HasMany(x=>x.Matches)
         }
     }
 }
