@@ -29,5 +29,16 @@ namespace SO.Server.FeedConsumer.Comparers
                     .Union(ToAddIDs(current, updated))
                 );
         }
+
+        public static SyncRequirement GetSyncRequirement<T>(IEnumerable<T> oldCollection, IEnumerable<T> newCollection)
+           where T : IBaseModel
+        {
+            return new SyncRequirement()
+            {
+                Add = ToAddIDs(oldCollection, newCollection),
+                Update = ToUpdateIDs(oldCollection, newCollection),
+                Delete = ToDeleteIDs(oldCollection, newCollection)
+            };
+        }
     }
 }

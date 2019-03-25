@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XmlSports xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" CreateDate="2019-03-16T17:44:47.0201982Z">
+  <Sport Name="Soccer" ID="1165">
+    <Event Name="South Korea, K League Classic" ID="41464" IsLive="false" CategoryID="8943">
+      <Match Name="Daegu FC - Ulsan Hyundai" ID="1331765" StartDate="2019-03-17T05:00:00" MatchType="PreMatch">
+        <Bet Name="Match Winner " ID="18340513" IsLive="false">
+          <Odd Name="1" ID="100941520" Value="2.7" />
+          <Odd Name="x" ID="100941521" Value="3.4" />
+          <Odd Name="2" ID="100941522" Value="2.3" />
+        </Bet>
+      </Match>
+    </Event>
+    <Event Name="Hungary, NB I" ID="39554" IsLive="false" CategoryID="8917">
+      <Match Name="Videoton FC - Mezokovesd Zsory" ID="1332439" StartDate="2019-03-16T16:00:00" MatchType="Live">
+        <Bet Name="Match Winner " ID="18362794" IsLive="true">
+          <Odd Name="1" ID="101129822" Value="1.03" />
+          <Odd Name="x" ID="101129823" Value="10.79" />
+          <Odd Name="2" ID="101129824" Value="66.29" />
+        </Bet>
+        <Bet Name="Asian Handicap" ID="18363359" IsLive="true">
+          <Odd Name="1" ID="101134996" Value="4.62" SpecialBetValue="-0.5" />
+          <Odd Name="2" ID="101134997" Value="1.09" SpecialBetValue="-0.5" />
+          <Odd Name="1" ID="101135002" Value="3.21" SpecialBetValue="-0.25" />
+          <Odd Name="2" ID="101135003" Value="1.26" SpecialBetValue="-0.25" />
+          <Odd Name="1" ID="101138214" Value="1.03" SpecialBetValue="0.25" />
+          <Odd Name="2" ID="101138215" Value="5.66" SpecialBetValue="0.25" />
+          <Odd Name="1" ID="101135004" Value="1.33" SpecialBetValue="0" />
+          <Odd Name="2" ID="101135005" Value="2.87" SpecialBetValue="0" />
+        </Bet>
+        <Bet Name="Total Goals" ID="18362796" IsLive="true">
+          <Odd Name="Over" ID="101130995" Value="3.61" SpecialBetValue="1.5" />
+          <Odd Name="Under" ID="101130996" Value="1.17" SpecialBetValue="1.5" />
+        </Bet>
+      </Match>
+      <Match Name="Budapest Honved FC - Paksi FC" ID="1332440" StartDate="2019-03-16T16:00:00" MatchType="Live" />
+      <Match Name="Puskas Akademia FC - MTK Budapest FC" ID="1332441" StartDate="2019-03-16T16:00:00" MatchType="Live" />
+      <Match Name="Ferencvaros-Esmtk - Szombathelyi Haladas FC" ID="1332444" StartDate="2019-03-16T16:00:00" MatchType="Live">
+        <Bet Name="Match Winner " ID="18362821" IsLive="true">
+          <Odd Name="1" ID="101130026" Value="1.77" />
+          <Odd Name="x" ID="101130027" Value="2.25" />
+          <Odd Name="2" ID="101130028" Value="14.43" />
+        </Bet>
+        <Bet Name="Asian Handicap" ID="18364099" IsLive="true">
+          <Odd Name="1" ID="101143011" Value="1.72" SpecialBetValue="-0.25" />
+          <Odd Name="2" ID="101143012" Value="2.04" SpecialBetValue="-0.25" />
+        </Bet>
+        <Bet Name="Total Goals" ID="18362820" IsLive="true">
+          <Odd Name="Over" ID="101130038" Value="2.30" SpecialBetValue="2.5" />
+          <Odd Name="Under" ID="101130039" Value="1.51" SpecialBetValue="2.5" />
+        </Bet>
+      </Match>
+      <Match Name="Debreceni VSC - Diosgyori Vtk" ID="1332443" StartDate="2019-03-16T18:30:00" MatchType="PreMatch">
+        <Bet Name="Match Winner " ID="18350889" IsLive="false">
+          <Odd Name="1" ID="101022972" Value="1.54" />
+          <Odd Name="x" ID="101022976" Value="4.27" />
+          <Odd Name="2" ID="101022981" Value="5.68" />
+        </Bet>
+        <Bet Name="Asian Handicap" ID="18350881" IsLive="false">
+          <Odd Name="1" ID="101022914" Value="1.64" SpecialBetValue="-0.75" />
+          <Odd Name="2" ID="101022915" Value="2.16" SpecialBetValue="-0.75" />
+          <Odd Name="1" ID="101022954" Value="1.47" SpecialBetValue="-0.5" />
+          <Odd Name="2" ID="101022958" Value="2.45" SpecialBetValue="-0.5" />
+          <Odd Name="1" ID="101022942" Value="2.23" SpecialBetValue="-1.25" />
+          <Odd Name="2" ID="101022943" Value="1.59" SpecialBetValue="-1.25" />
+          <Odd Name="1" ID="101022946" Value="1.91" SpecialBetValue="-1" />
+          <Odd Name="2" ID="101022947" Value="1.84" SpecialBetValue="-1" />
+          <Odd Name="1" ID="101135443" Value="2.54" SpecialBetValue="-1.5" />
+          <Odd Name="2" ID="101135444" Value="1.44" SpecialBetValue="-1.5" />
+        </Bet>
+        <Bet Name="Total Goals" ID="18350885" IsLive="false">
+          <Odd Name="Over" ID="101022928" Value="1.71" SpecialBetValue="2.5" />
+          <Odd Name="Under" ID="101022929" Value="2.04" SpecialBetValue="2.5" />
+          <Odd Name="Over" ID="101022932" Value="1.49" SpecialBetValue="2.25" />
+          <Odd Name="Under" ID="101022933" Value="2.39" SpecialBetValue="2.25" />
+          <Odd Name="Over" ID="101022934" Value="1.92" SpecialBetValue="2.75" />
+          <Odd Name="Under" ID="101022935" Value="1.82" SpecialBetValue="2.75" />
+          <Odd Name="Over" ID="101022936" Value="2.24" SpecialBetValue="3" />
+          <Odd Name="Under" ID="101022937" Value="1.57" SpecialBetValue="3" />
+          <Odd Name="Over" ID="101074462" Value="2.52" SpecialBetValue="3.25" />
+          <Odd Name="Under" ID="101074463" Value="1.42" SpecialBetValue="3.25" />
+        </Bet>
+        <Bet Name="[HomeTeam] Totals" ID="18350877" IsLive="false">
+          <Odd Name="Over" ID="101022783" Value="1.62" SpecialBetValue="1.5" />
+          <Odd Name="Under" ID="101022784" Value="2.11" SpecialBetValue="1.5" />
+        </Bet>
+        <Bet Name="[AwayTeam] Totals" ID="18350874" IsLive="false">
+          <Odd Name="Over" ID="101022769" Value="1.57" SpecialBetValue="0.5" />
+          <Odd Name="Under" ID="101022770" Value="2.16" SpecialBetValue="0.5" />
+        </Bet>
+        <Bet Name="Both Teams To Score" ID="18350880" IsLive="false">
+          <Odd Name="Yes" ID="101022816" Value="1.82" />
+          <Odd Name="No" ID="101022817" Value="1.82" />
+        </Bet>
+        <Bet Name="First Team To Score" ID="18350879" IsLive="false">
+          <Odd Name="None" ID="101022813" Value="13.75" />
+          <Odd Name="1" ID="101022814" Value="1.42" />
+          <Odd Name="2" ID="101022815" Value="2.99" />
+        </Bet>
+        <Bet Name="Correct Score" ID="18350878" IsLive="false">
+          <Odd Name="1:0" ID="101022785" Value="7.14" />
+          <Odd Name="2:0" ID="101022786" Value="7.38" />
+          <Odd Name="2:1" ID="101022787" Value="8.37" />
+          <Odd Name="3:0" ID="101022788" Value="11.07" />
+          <Odd Name="3:1" ID="101022789" Value="12.55" />
+          <Odd Name="3:2" ID="101022790" Value="28.54" />
+          <Odd Name="4:0" ID="101022791" Value="22.64" />
+          <Odd Name="4:1" ID="101022792" Value="25.59" />
+          <Odd Name="4:2" ID="101022793" Value="59.05" />
+          <Odd Name="5:0" ID="101022794" Value="57.08" />
+          <Odd Name="5:1" ID="101022795" Value="64.96" />
+          <Odd Name="6:0" ID="101022796" Value="108.26" />
+          <Odd Name="0:0" ID="101022797" Value="12.79" />
+          <Odd Name="1:1" ID="101022798" Value="7.63" />
+          <Odd Name="2:2" ID="101022799" Value="17.47" />
+          <Odd Name="3:3" ID="101022800" Value="92.51" />
+          <Odd Name="0:1" ID="101022801" Value="15.50" />
+          <Odd Name="0:2" ID="101022802" Value="35.43" />
+          <Odd Name="1:2" ID="101022803" Value="18.21" />
+          <Odd Name="0:3" ID="101022804" Value="108.26" />
+          <Odd Name="1:3" ID="101022805" Value="61.02" />
+          <Odd Name="2:3" ID="101022806" Value="62.99" />
+          <Odd Name="0:4" ID="101022807" Value="108.26" />
+          <Odd Name="1:4" ID="101022808" Value="108.26" />
+          <Odd Name="2:4" ID="101022809" Value="108.26" />
+          <Odd Name="0:5" ID="101022810" Value="108.26" />
+          <Odd Name="1:5" ID="101022811" Value="108.26" />
+          <Odd Name="0:6" ID="101022812" Value="108.26" />
+        </Bet>
+        <Bet Name="Half Time/Full Time" ID="18350875" IsLive="false">
+          <Odd Name="1/1" ID="101022771" Value="2.26" />
+          <Odd Name="X/1" ID="101022772" Value="4.08" />
+          <Odd Name="2/1" ID="101022773" Value="22.62" />
+          <Odd Name="1/X" ID="101022774" Value="15.74" />
+          <Odd Name="X/X" ID="101022775" Value="6.39" />
+          <Odd Name="2/X" ID="101022776" Value="16.97" />
+          <Odd Name="1/2" ID="101022777" Value="43.27" />
+          <Odd Name="X/2" ID="101022778" Value="11.80" />
+          <Odd Name="2/2" ID="101022779" Value="10.57" />
+        </Bet>
+        <Bet Name="1st Half Winner" ID="18350897" IsLive="false">
+          <Odd Name="1" ID="101023026" Value="2.13" />
+          <Odd Name="x" ID="101023029" Value="2.38" />
+          <Odd Name="2" ID="101023034" Value="5.31" />
+        </Bet>
+        <Bet Name="1st Half Asian Handicap " ID="18350896" IsLive="false">
+          <Odd Name="1" ID="101022988" Value="1.69" SpecialBetValue="-0.25" />
+          <Odd Name="2" ID="101022989" Value="2.07" SpecialBetValue="-0.25" />
+          <Odd Name="1" ID="101022996" Value="2.62" SpecialBetValue="-0.75" />
+          <Odd Name="2" ID="101023000" Value="1.38" SpecialBetValue="-0.75" />
+          <Odd Name="1" ID="101023006" Value="2.10" SpecialBetValue="-0.5" />
+          <Odd Name="2" ID="101023007" Value="1.66" SpecialBetValue="-0.5" />
+          <Odd Name="1" ID="101023014" Value="1.22" SpecialBetValue="0" />
+          <Odd Name="2" ID="101023017" Value="3.30" SpecialBetValue="0" />
+          <Odd Name="1" ID="101053465" Value="1.09" SpecialBetValue="0.25" />
+          <Odd Name="2" ID="101053466" Value="4.29" SpecialBetValue="0.25" />
+        </Bet>
+        <Bet Name="1st Half Total Goals " ID="18350898" IsLive="false">
+          <Odd Name="Over" ID="101023043" Value="1.70" SpecialBetValue="1" />
+          <Odd Name="Under" ID="101023047" Value="2.05" SpecialBetValue="1" />
+          <Odd Name="Over" ID="101023053" Value="1.26" SpecialBetValue="0.5" />
+          <Odd Name="Under" ID="101023056" Value="3.10" SpecialBetValue="0.5" />
+          <Odd Name="Over" ID="101023076" Value="2.61" SpecialBetValue="1.5" />
+          <Odd Name="Under" ID="101023081" Value="1.39" SpecialBetValue="1.5" />
+          <Odd Name="Over" ID="101023062" Value="1.40" SpecialBetValue="0.75" />
+          <Odd Name="Under" ID="101023065" Value="2.58" SpecialBetValue="0.75" />
+          <Odd Name="Over" ID="101023069" Value="2.17" SpecialBetValue="1.25" />
+          <Odd Name="Under" ID="101023073" Value="1.61" SpecialBetValue="1.25" />
+        </Bet>
+        <Bet Name="1st Half - Double Chance" ID="18350876" IsLive="false">
+          <Odd Name="1X" ID="101022780" Value="1.15" />
+          <Odd Name="12" ID="101022781" Value="1.54" />
+          <Odd Name="X2" ID="101022782" Value="1.68" />
+        </Bet>
+      </Match>
+    </Event>
+  </Sport>
+</XmlSports>

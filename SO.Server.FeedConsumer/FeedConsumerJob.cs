@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using SO.Server.Data;
-using SO.Server.Data.Entities;
+using SO.Data;
+using SO.Data.Entities;
 using SO.Server.FeedConsumer.Comparers;
 using SO.Server.FeedConsumer.Models;
 using System;
@@ -16,100 +16,97 @@ namespace SO.Server.FeedConsumer
 {
     public class FeedConsumerJob
     {
-        //public delegate void MatchChangedHandler(IEnumerable<int> changedMatches);
-        //public event MatchChangedHandler matchChangedEvent;
+        public delegate void EventsUpdatedHandler(IEnumerable<EventModel> updatedEvents);
+        public event EventsUpdatedHandler eventsUpdatedEvent;
 
-        private readonly IUnitOfWork _uow;
-        private readonly IRepository<Match> _matchRepository;
-        private readonly IRepository<Sport> _sportRepository;
-        private readonly IRepository<Event> _eventRepository;
+        public delegate void EventsAddedHandler(IEnumerable<EventModel> addedEvents);
+        public event EventsAddedHandler eventsAddedEvent;
+
+        public delegate void EventsRemovedHandler(IEnumerable<int> removedEvents);
+        public event EventsRemovedHandler eventsRemovedEvent;
+
         private readonly IMapper _mapper;
-        private readonly Sport _currentSport;
+        private readonly IServiceProvider _services;
 
-        public FeedConsumerJob(IMapper mapper, IUnitOfWork uow)
+        public FeedConsumerJob(IMapper mapper, IServiceProvider services)
         {
-            _uow = uow;
-            //_matchRepository = uow.GetRepository<Match>();
-            _sportRepository = uow.GetRepository<Sport>();
-            //_eventRepository = uow.GetRepository<Event>();
             _mapper = mapper;
-            _currentSport = _sportRepository
-                    .FirstOrDefault(x => x.Id == 1165, //Just for POC 
-                            include: x =>
-                                x.Include(sp => sp.Events)
-                                .ThenInclude(ev => ev.Matches)
-                                .ThenInclude(ma => ma.Bets)
-                                .ThenInclude(bet => bet.Odds));
+            _services = services;
         }
 
         public void Fetch()
         {
-            var updatedSport = Get("soccer.xml");
-            //var updatedSport = _mapper.Map<Sport>(updated.Sport);
-            var currentSport = _mapper.Map<SportModel>(_currentSport);
+            var uow = (IUnitOfWork)_services.GetService(typeof(IUnitOfWork));
+            var sportRepository = uow.GetRepository<Sport>();
 
-            if (_currentSport == null)// Initial DB seed
+            var currentSport = sportRepository
+                     .FirstOrDefault(x => x.Id == 1165, //Just for POC 
+                             include: x =>
+                                 x.Include(sp => sp.Events)
+                                 .ThenInclude(ev => ev.Matches)
+                                 .ThenInclude(ma => ma.Bets)
+                                 .ThenInclude(bet => bet.Odds));
+
+            var updatedSportXml = Get("soccer.xml");
+            var currentSportModel = _mapper.Map<SportModel>(currentSport);
+
+            if (currentSport == null)// Initial DB seed
             {
-                _sportRepository.Add(_mapper.Map<Sport>(updatedSport.Sport));
+                sportRepository.Add(_mapper.Map<Sport>(updatedSportXml.Sport));
             }
             else
             {
-                var syncResult = Sync<Event, EventModel>(currentSport.Events, updatedSport.Sport.Events);
-
-
-                var genericRepository = _uow.GetRepository<Event>();
-                var toAdd = _mapper.Map<IEnumerable<Event>>(updatedSport.Sport.Events.Where(x => syncResult.Add.Contains(x.Id)));
-                var toDelete = _mapper.Map<IEnumerable<Event>>(currentSport.Events.Where(x => syncResult.Delete.Contains(x.Id)));
-                var toUpdate = _mapper.Map<IEnumerable<Event>>(currentSport.Events.Where(x => syncResult.Update.Contains(x.Id)));
-                genericRepository.Add(toAdd);
-                genericRepository.Delete(toDelete);
-                //genericRepository.Update(toUpdate);
-
-            //var sync2 = Sync<>
-                //Sync Events
-                //var currentMatches = _mapper.Map<IEnumerable<MatchModel>>(_currentSport.Events.SelectMany(x => x.Matches));
-                //var updatedMatches = updated.Sport.Events.SelectMany(x => x.Matches);
-
-                //var update = DiffChecker.ToUpdateIDs(currentMatches, updatedMatches);
-                //var delete = DiffChecker.ToDeleteIDs(currentMatches, updatedMatches);
-                //var add = DiffChecker.ToAddIDs(currentMatches, updatedMatches);
-
-                //_matchRepository.Delete(delete.Select(id => new Match() { Id = id }));
+                var syncRequirement = DiffChecker.GetSyncRequirement(currentSportModel.Events, updatedSportXml.Sport.Events);
+                if (syncRequirement.Add.Count() > 0 || syncRequirement.Delete.Count() > 0 || syncRequirement.Update.Count() > 0)
+                {
+                    SyncEventInDb(currentSport, updatedSportXml.Sport, syncRequirement, uow);
+                }
             }
 
-            //matchChangedEvent(update);
-            //var deleteEvents = mapper.Map<IEnumerable<Event>>(delete);
-            //eventsRepo.Delete(deleteEvents);
-            //update
-            //var update = currentXml.Sport.Events.Intersect(newXml.Sport.Events);
-            //add
-            //var add = newXml.Sport.Events.Except(currentXml.Sport.Events);
-            //var addEvents = mapper.Map<IEnumerable<Event>>(add);
-            //eventsRepo.Add(addEvents);
-            _uow.SaveChanges();
+            uow.SaveChanges();
         }
 
-
-        private SyncResult Sync<Z, T>(IEnumerable<T> oldCollection, IEnumerable<T> newCollection)
-            where Z : class, IEntity
-            where T : IBaseModel
+        private void SyncEventInDb(Sport currentSport, SportModel updatedSportModel, SyncRequirement syncRequirement, IUnitOfWork uow)
         {
-            return new SyncResult()
+            var toAddModel = updatedSportModel.Events.Where(x => syncRequirement.Add.Contains(x.Id));
+            var toAdd = _mapper.Map<IEnumerable<Event>>(toAddModel);
+            toAdd = toAdd.Select(x =>
             {
-                Add = DiffChecker.ToAddIDs(oldCollection, newCollection),
-                Update = DiffChecker.ToUpdateIDs(oldCollection, newCollection),
-                Delete = DiffChecker.ToDeleteIDs(oldCollection, newCollection)
-            };
-        }
+                x.SportId = currentSport.Id;
+                return x;
+            });
 
+            var toUpdateModels = updatedSportModel.Events.Where(x => syncRequirement.Update.Contains(x.Id));
+            var toUpdate = _mapper.Map<IEnumerable<Event>>(toUpdateModels);
+            toUpdate = toUpdate.Select(x =>
+            {
+                x.SportId = currentSport.Id;
+                return x;
+            });
+
+            var toDelete = _mapper.Map<IEnumerable<Event>>(currentSport.Events.Where(x => syncRequirement.Delete.Contains(x.Id)));
+
+            var sportRepository = uow.GetRepository<Sport>();
+            var eventRepository = uow.GetRepository<Event>();
+
+            eventRepository.Delete(toDelete);
+            eventRepository.Add(toAdd);
+            eventRepository.Update(toUpdate);
+
+            eventsUpdatedEvent?.Invoke(toUpdateModels);
+            eventsAddedEvent?.Invoke(toAddModel);
+            eventsRemovedEvent?.Invoke(syncRequirement.Delete);
+        }
 
         private XmlSportsModel Get(string fileName)
         {
-            var xsw = new XmlSerializer(typeof(XmlSportsModel));
-            var fs = new FileStream(fileName, FileMode.Open);
-            var stream = new StreamReader(fs, Encoding.UTF8);
-            var config = (XmlSportsModel)xsw.Deserialize(new XmlTextReader(stream));
-            return config;
+            using (var fs = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                var xsw = new XmlSerializer(typeof(XmlSportsModel));
+                var stream = new StreamReader(fs, Encoding.UTF8);
+                var config = (XmlSportsModel)xsw.Deserialize(new XmlTextReader(stream));
+                return config;
+            }
         }
     }
 }

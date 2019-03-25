@@ -3,9 +3,9 @@
 This is a proof of concept for consuming a feed, persisting the data in a db and broadcast the differences to a web client
 
 ### Prerequisites
-C# >= 7.0
-.NET Core >= 2.2 - https://dotnet.microsoft.com/download/dotnet-core/2.2
-node.js - Self host our web client
+* C# >= 7.0
+* .NET Core >= 2.2 - https://dotnet.microsoft.com/download/dotnet-core/2.2
+* node.js - Self host our web client
 
 ### Tech
 * Server: .NET Core, SignalR, Hangfire, Automapper, Entity Framework Core SQLite
