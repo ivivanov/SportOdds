@@ -10,14 +10,14 @@ class Odd extends Component {
             name: props.data.name,
             value: props.data.value
         };
-        this.onOddsUpdateReceived = this.onOddsUpdateReceived.bind(this);
+        this.onOddsUpdatedReceived = this.onOddsUpdatedReceived.bind(this);
     }
 
     componentDidMount() {
-        this.ws.on('OddsUpdate', this.onOddsUpdateReceived);
+        this.ws.on('oddsUpdated', this.onOddsUpdatedReceived);
     }
 
-    onOddsUpdateReceived(data) {
+    onOddsUpdatedReceived(data) {
         this.setState(function (prevState, props) {
             for (let i = 0; i < data.length; i++) {
                 const odd = data[i];

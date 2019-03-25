@@ -9,6 +9,8 @@ class Match extends Component {
         this.state = {
             id: props.data.id,
             name: props.data.name,
+            matchType: props.data.matchType,
+            startDate: props.data.startDate,
             bets: props.data.bets || []
         };
     }
@@ -16,8 +18,8 @@ class Match extends Component {
     render() {
         return (
             <li className='list-group-item'>
-                <h6>{this.state.name}</h6>
-                <ul className='list-group'>
+                <h4>{this.state.name} / {this.state.startDate} / {this.state.matchType}</h4>
+                <ul className='list-group-horizontal'>
                 {this.state.bets.map((bet, i)  => (
                         <Bet key={i} data={bet} ws={this.ws}></Bet>
                     ))}

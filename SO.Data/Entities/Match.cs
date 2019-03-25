@@ -19,9 +19,6 @@ namespace SO.Data.Entities
 
         public int EventId { get; set; }
 
-        [ForeignKey("EventId")]
-        public Event Event { get; set; }
-
         public string Name { get; set; }
 
         public DateTime StartDate { get; set; }

@@ -12,9 +12,6 @@ namespace SO.Data.Entities
 
         public int BetId { get; set; }
 
-        [ForeignKey("BetId")]
-        public Bet Bet { get; set; }
-
         public string Name { get; set; }
 
         public double Value { get; set; }

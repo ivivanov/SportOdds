@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SO.Data.Repositories;
 
 namespace SO.Data
 {
@@ -7,10 +7,10 @@ namespace SO.Data
     {
         public static IServiceCollection AddDataServices(this IServiceCollection services)
         {
-            services.AddDbContext<SODbContext>(options => options.UseSqlite(SODbContext.ConnectionString), ServiceLifetime.Transient);
+            services.AddDbContext<SODbContext>();
             services.AddTransient<IUnitOfWork, UnitOfWork<SODbContext>>();
+
             return services;
         }
-
     }
 }

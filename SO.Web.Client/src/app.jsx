@@ -3,6 +3,8 @@ import './app.css';
 import * as signalR from '@aspnet/signalr';
 import axios from 'axios';
 import Event from './EventComponent';
+import Match from './MatchComponent';
+import { debug } from 'util';
 
 const protocol = new signalR.JsonHubProtocol();
 const transport = signalR.HttpTransportType.WebSockets;
@@ -22,31 +24,27 @@ class App extends Component {
     super(props);
 
     this.state = {
-      events: [],
-      test: "test"
+      matches: []
     };
 
-    this.onEventsAddReceived = this.onEventsAddReceived.bind(this);
-    this.onEventsRemoveReceived = this.onEventsRemoveReceived.bind(this);
-    this.onServerStatusReceived = this.onServerStatusReceived.bind(this);
+    this.onMatchesAddedReceived = this.onMatchesAddedReceived.bind(this);
+    this.onMatchesRemovedReceived = this.onMatchesRemovedReceived.bind(this);
   }
 
   componentDidMount() {
     var self = this;
-
-    ws.on('EventsAdd', this.onEventsAddReceived);
-    ws.on('EventsRemove', this.onEventsRemoveReceived);
-    ws.on('ServerStatus', this.onServerStatusReceived);
-
+    ws.on('matchesAdded', this.onMatchesAddedReceived);
+    ws.on('matchesRemoved', this.onMatchesRemovedReceived);
     ws.start()
       .then(() => console.info("Connection succcess"))
       .catch(err => console.error('SignalR Connection Error: ', err));
 
-    axios.get('http://localhost:56348/api/events')
+    //Initial load
+    axios.get('http://localhost:56348/api/matches')
       .then(function (response) {
         self.setState(function (prevState, props) {
           return {
-            events: prevState.events.concat(response.data)
+            matches: prevState.matches.concat(response.data)
           };
         });
       })
@@ -55,19 +53,16 @@ class App extends Component {
       });
   }
 
-  onEventsAddReceived(data) {
+  onMatchesAddedReceived(data) {
     this.setState(function (prevState, props) {
       return {
-        events: prevState.events.concat(data)
+        events: prevState.matches.concat(data)
       };
     });
   }
 
-  onEventsRemoveReceived(data) {
+  onMatchesRemovedReceived(data) {
     //TODO
-  }
-
-  onServerStatusReceived(msg) {
   }
 
   componentWillUnmount() {
@@ -77,10 +72,10 @@ class App extends Component {
   render() {
 
     return (
-      <div className='app container'>
+      <div className='app'>
         <ul className="list-group">
-          {this.state.events.map((event, i) => (
-            <Event key={i} data={event} ws={ws}></Event>
+          {this.state.matches.map((event, i) => (
+            <Match key={i} data={event} ws={ws}></Match>
           ))}
         </ul>
       </div>

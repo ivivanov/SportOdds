@@ -14,7 +14,7 @@ namespace SO.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846");
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
 
             modelBuilder.Entity("SO.Data.Entities.Bet", b =>
                 {
@@ -99,7 +99,7 @@ namespace SO.Data.Migrations
 
             modelBuilder.Entity("SO.Data.Entities.Bet", b =>
                 {
-                    b.HasOne("SO.Data.Entities.Match", "Match")
+                    b.HasOne("SO.Data.Entities.Match")
                         .WithMany("Bets")
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -107,7 +107,7 @@ namespace SO.Data.Migrations
 
             modelBuilder.Entity("SO.Data.Entities.Event", b =>
                 {
-                    b.HasOne("SO.Data.Entities.Sport", "Sport")
+                    b.HasOne("SO.Data.Entities.Sport")
                         .WithMany("Events")
                         .HasForeignKey("SportId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -115,7 +115,7 @@ namespace SO.Data.Migrations
 
             modelBuilder.Entity("SO.Data.Entities.Match", b =>
                 {
-                    b.HasOne("SO.Data.Entities.Event", "Event")
+                    b.HasOne("SO.Data.Entities.Event")
                         .WithMany("Matches")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -123,7 +123,7 @@ namespace SO.Data.Migrations
 
             modelBuilder.Entity("SO.Data.Entities.Odd", b =>
                 {
-                    b.HasOne("SO.Data.Entities.Bet", "Bet")
+                    b.HasOne("SO.Data.Entities.Bet")
                         .WithMany("Odds")
                         .HasForeignKey("BetId")
                         .OnDelete(DeleteBehavior.Cascade);

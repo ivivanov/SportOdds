@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SO.Server.FeedConsumer.Utils;
+using System;
 using System.Xml.Serialization;
 
 namespace SO.Server.FeedConsumer.Models
@@ -11,5 +12,10 @@ namespace SO.Server.FeedConsumer.Models
 
         [XmlElement]
         public SportModel Sport { get; set; }
+
+        public static XmlSportsModel Create(string xml)
+        {
+            return XmlUtils.Deserialize<XmlSportsModel>(xml);
+        }
     }
 }

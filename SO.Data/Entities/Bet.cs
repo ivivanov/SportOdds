@@ -18,9 +18,6 @@ namespace SO.Data.Entities
 
         public int MatchId { get; set; }
 
-        [ForeignKey("MatchId")]
-        public Match Match { get; set; }
-
         public string Name { get; set; }
 
         public bool IsLive { get; set; }

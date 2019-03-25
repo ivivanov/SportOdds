@@ -18,9 +18,6 @@ namespace SO.Data.Entities
 
         public int SportId { get; set; }
 
-        [ForeignKey("SportId")]
-        public Sport Sport { get; set; }
-
         public string Name { get; set; }
 
         public bool IsLive { get; set; }
