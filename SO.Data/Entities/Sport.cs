@@ -18,6 +18,6 @@ namespace SO.Data.Entities
 
         public string Name { get; set; }
 
-        public virtual ICollection<Event> Events { get; set; }
+        public ICollection<Event> Events { get; set; }
     }
 }

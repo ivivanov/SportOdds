@@ -10,9 +10,9 @@ namespace SO.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        [ForeignKey("Bet")]
         public int BetId { get; set; }
 
+        [ForeignKey("BetId")]
         public Bet Bet { get; set; }
 
         public string Name { get; set; }

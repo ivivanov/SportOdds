@@ -16,15 +16,15 @@ namespace SO.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        [ForeignKey("Match")]
         public int MatchId { get; set; }
 
+        [ForeignKey("MatchId")]
         public Match Match { get; set; }
 
         public string Name { get; set; }
 
         public bool IsLive { get; set; }
 
-        public virtual ICollection<Odd> Odds { get; set; }
+        public ICollection<Odd> Odds { get; set; }
     }
 }

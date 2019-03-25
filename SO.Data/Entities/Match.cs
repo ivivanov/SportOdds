@@ -17,9 +17,9 @@ namespace SO.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        [ForeignKey("Event")]
         public int EventId { get; set; }
 
+        [ForeignKey("EventId")]
         public Event Event { get; set; }
 
         public string Name { get; set; }
@@ -28,6 +28,6 @@ namespace SO.Data.Entities
 
         public string MatchType { get; set; }
 
-        public virtual ICollection<Bet> Bets { get; set; }
+        public ICollection<Bet> Bets { get; set; }
     }
 }
